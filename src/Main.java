@@ -40,18 +40,35 @@ public class Main {
                 new Task(8, "task1", "done", 8),
                 new Task(9, "task1", "done", 8)
         );
-        List <List<Task>> listOfTasks = new ArrayList(List.of(t1,t2,t3));
 
 
     List<Programmer> list = new ArrayList<>(List.of(new Programmer("John", "Ulyanovsk", t1),
         new Programmer("Olga", "Berlin", t2), new Programmer ("Andrew", "Paris", t3)));
 
+        // 1 задача
         Map<String, Integer> map = list.stream().collect(Collectors
                                 .toMap(s -> s.getName(), s -> s.getTasks().size()-1));
-        System.out.println(map);
-        Map<String, List<Task>> map1 = list.stream().collect(Collectors.toMap(s -> s.getName(), s -> s.getTasks()));
+
+        //конец первой задачи
+
+        //Map<String, List<Task>> map1 = list.stream().collect(Collectors.toMap(s -> s.getName(), s -> s.getTasks()));
         //Map<List<Task>, List<Programmer>> mapTasks = list.stream().collect(Collectors.groupingBy(s -> s.getTasks()));
         //System.out.println(mapTasks);
+
+        //вторая задача :
+//        Дан список Programmer(String name, String city, List<Task>  tasks). Каждый программист
+//        имеет список задач    Task (int Number, String description, String status, int daysInProcessing) .
+//        Сформировать Map<Integer, Task> где ключ, это номер задачи, а значение сама задача
+
+        List <List<Task>> listOfTasks = new ArrayList(List.of(t1,t2,t3));
+        Map<Integer, List<Task>> allTasksGroupingByNumbers = listOfTasks.stream()
+                .flatMap(s -> s.stream()).collect(Collectors.groupingBy(s -> s.getNumber()))
+        System.out.println(allTasksGroupingByNumbers);//map из ключика TaskNumber и самой задачи
+        //конец второй задачи
+
+        //третья задача
+
+
 
     }
 }
