@@ -2,6 +2,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+//https://github.com/Algushka/Grouping.git
 //Дан список Programmer(String name, String city, List<Task>  tasks).
 //        Каждый программист  имеет список задач    Task (int Number,
 //
@@ -11,6 +12,7 @@ import java.util.Map;
 //        у данного программиста (в рамках этой задачи, считаем что список
 //        не пустой и в нем нет null значений)
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -61,9 +63,15 @@ public class Main {
 //        Сформировать Map<Integer, Task> где ключ, это номер задачи, а значение сама задача
 
         List <List<Task>> listOfTasks = new ArrayList(List.of(t1,t2,t3));
+        //с повторами
         Map<Integer, List<Task>> allTasksGroupingByNumbers = listOfTasks.stream()
                 .flatMap(s -> s.stream()).collect(Collectors.groupingBy(s -> s.getNumber()));
         System.out.println(allTasksGroupingByNumbers);//map из ключика TaskNumber и самой задачи
+        //без повторов
+        Map<Integer, Set<Task>> taskByNumbersWithoutRepeatingElements = listOfTasks.stream()
+                .flatMap(s -> s.stream()).collect(Collectors.groupingBy(s -> s.getNumber(), Collectors.toSet()));
+        System.out.println(taskByNumbersWithoutRepeatingElements);
+
         //конец второй задачи
 
         //третья задача
@@ -73,6 +81,7 @@ public class Main {
 //        Сформировать Map<String, List<Task>> где ключ, это статус задачи, а значение список задач в этом статусе
         Map<String, List<Task>> allTasksGroupingByStatus = listOfTasks.stream().flatMap(s -> s.stream()).collect(Collectors.groupingBy(s -> s.getStatus()));
         System.out.println(allTasksGroupingByStatus );
-
+        Map<String, Set<Task>> allTasksGroupingByStatusWithoutRepeating = listOfTasks.stream().flatMap(s -> s.stream()).collect(Collectors.groupingBy(s -> s.getStatus(), Collectors.toSet()));
+        System.out.println(allTasksGroupingByStatusWithoutRepeating );
     }
 }
