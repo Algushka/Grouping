@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,9 @@ public class Main {
                 new Task(8, "task1", "done", 8),
                 new Task(9, "task1", "done", 8)
         );
-        List <List<Task>> listOfTasks
+        List <List<Task>> listOfTasks = new ArrayList(List.of(t1,t2,t3));
+
+
     List<Programmer> list = new ArrayList<>(List.of(new Programmer("John", "Ulyanovsk", t1),
         new Programmer("Olga", "Berlin", t2), new Programmer ("Andrew", "Paris", t3)));
 
@@ -47,8 +50,8 @@ public class Main {
                                 .toMap(s -> s.getName(), s -> s.getTasks().size()-1));
         System.out.println(map);
         Map<String, List<Task>> map1 = list.stream().collect(Collectors.toMap(s -> s.getName(), s -> s.getTasks()));
-        Map<List<Task>, List<Programmer>> mapTasks = list.stream().collect(Collectors.groupingBy(s -> s.getTasks()));
-        System.out.println(mapTasks);
+        //Map<List<Task>, List<Programmer>> mapTasks = list.stream().collect(Collectors.groupingBy(s -> s.getTasks()));
+        //System.out.println(mapTasks);
 
     }
 }
